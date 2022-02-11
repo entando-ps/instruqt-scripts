@@ -41,4 +41,6 @@ do
 done
 echo '****************Entando is started****************'
 
+cd ..
+
 echo "==============================END entando installation =============================="

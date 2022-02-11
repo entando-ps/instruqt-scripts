@@ -1,12 +1,6 @@
 #!/bin/bash -l
 
 SECONDS=0
-# Wait for the Instruqt host bootstrap to finish
-until [ -f /opt/instruqt/bootstrap/host-bootstrap-completed ]
-do
-    sleep 1
-done
-
 
 echo "============================== Entando Setup Script started =============================="
 
