@@ -15,6 +15,8 @@ chmod +x *.sh
 
 source ./install-cert-manager.sh
 
+source ./install-certificate.sh
+
 source ./install-entando.sh
 
 source ./patch-cm.sh
