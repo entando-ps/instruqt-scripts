@@ -7,15 +7,15 @@ echo "============================== Entando Setup Script started ==============
 # shellcheck disable=SC2035
 chmod +x *.sh
 
-#source ./install-cert-manager.sh
-#
-#source ./install-certificate.sh
-#
-#source ./install-entando.sh
-#
-#source ./patch-cm.sh
-#
-#source ./patch-kc.sh
+source ./install-cert-manager.sh
+
+source ./install-certificate.sh
+
+source ./install-entando.sh
+
+source ./patch-cm.sh
+
+source ./patch-kc.sh
 
 echo '****************START BASH PROFILE****************'
 cat <<EOT >> ../.bash_profile
