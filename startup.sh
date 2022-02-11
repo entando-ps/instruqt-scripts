@@ -1,0 +1,35 @@
+#!/bin/bash -l
+
+SECONDS=0
+# Wait for the Instruqt host bootstrap to finish
+until [ -f /opt/instruqt/bootstrap/host-bootstrap-completed ]
+do
+    sleep 1
+done
+
+
+echo "============================== Entando Setup Script started =============================="
+
+source ./cert-manager/install-cert-manager.sh
+
+source ./install-entando.sh
+
+source ./patch-cm.sh
+
+source ./patch-kc.sh
+
+echo '****************START BASH PROFILE****************'
+cat <<EOT >> .bashprofile
+export NVM_DIR="\$HOME/.nvm"
+[ -s "\$NVM_DIR/nvm.sh" ] && \. "\$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "\$NVM_DIR/bash_completion" ] && \. "\$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "\$HOME/.entando/activate" ] && source \$HOME/.entando/activate --quiet --force 2>/dev/null
+EOT
+echo '****************END BASH PROFILE****************'
+
+
+
+# elapsed time
+duration=$SECONDS
+echo '****************ELAPSED TIME****************'
+echo "$(($duration / 60)) minutes and $(($duration % 60)) seconds elapsed."

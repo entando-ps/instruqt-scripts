@@ -1,4 +1,6 @@
 #!/bin/bash
+
+echo "==============================START entando installation =============================="
 echo "\${HOSTNAME}.\${INSTRUQT_PARTICIPANT_ID}" ${HOSTNAME}.${INSTRUQT_PARTICIPANT_ID}
 
 
@@ -27,6 +29,16 @@ sed -i "41i\        environmentVariables: " output.yaml
 sed -i '42i\        - name: "APPLICATIONBASEURL"' output.yaml
 sed -i '43i\          value: "https://'${HOSTNAME}.${INSTRUQT_PARTICIPANT_ID}'.instruqt.io/entando-de-app/"' output.yaml
 sudo kubectl apply -f output.yaml -n entando
-echo '****************App Builder will be ready****************'
-echo '****************Please wait for 10-15 mins***************'
-echo '*********************************************************'
+
+echo '****************Waiting Entando to start****************'
+podsAreReady=`sudo kubectl -n entando get pods | grep "quickstart-cm-deployment-" | grep "1/1" | wc -l`
+echo "1-podsAreReady = $podsAreReady"
+while [ $podsAreReady != "1" ]
+do
+    podsAreReady=`sudo kubectl -n entando get pods | grep "quickstart-cm-deployment-" | grep "1/1" | wc -l`
+    echo "2-podsAreReady = $podsAreReady"
+    sleep 5
+done
+echo '****************Entando is started****************'
+
+echo "==============================END entando installation =============================="
