@@ -30,9 +30,9 @@ sed -i '11i\    - name: "APPLICATIONBASEURL"' output.yaml
 sed -i '12i\      value: "https://'${HOSTNAME}.${INSTRUQT_PARTICIPANT_ID}'.instruqt.io/entando-de-app/"' output.yaml
 
 
-sed -i "40i\        environmentVariables: " output.yaml
-sed -i '41i\         - name: "APPLICATIONBASEURL"' output.yaml
-sed -i '42i\           value: "https://'${HOSTNAME}.${INSTRUQT_PARTICIPANT_ID}'.instruqt.io/entando-de-app/"' output.yaml
+sed -i "43i\        environmentVariables: " output.yaml
+sed -i '44i\         - name: "APPLICATIONBASEURL"' output.yaml
+sed -i '45i\           value: "https://'${HOSTNAME}.${INSTRUQT_PARTICIPANT_ID}'.instruqt.io/entando-de-app/"' output.yaml
 sudo kubectl apply -f output.yaml -n entando
 
 echo '****************Waiting Entando to start****************'
