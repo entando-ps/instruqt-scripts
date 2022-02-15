@@ -25,9 +25,14 @@ sed -i 's/##singleHostName:  test.mycluster.com/singleHostName: '${HOSTNAME}.${I
 sudo kubectl apply -f sample-configmaps/entando-operator-config.yaml -n entando
 
 sudo helm template quickstart ./ > output.yaml
-sed -i "41i\        environmentVariables: " output.yaml
-sed -i '42i\        - name: "APPLICATIONBASEURL"' output.yaml
-sed -i '43i\          value: "https://'${HOSTNAME}.${INSTRUQT_PARTICIPANT_ID}'.instruqt.io/entando-de-app/"' output.yaml
+sed -i "10i\ environmentVariables: " output.yaml
+sed -i '11i\  - name: "APPLICATIONBASEURL"' output.yaml
+sed -i '12i\    value: "https://'${HOSTNAME}.${INSTRUQT_PARTICIPANT_ID}'.instruqt.io/entando-de-app/"' output.yaml
+
+
+sed -i "40i\        environmentVariables: " output.yaml
+sed -i '41i\         - name: "APPLICATIONBASEURL"' output.yaml
+sed -i '42i\           value: "https://'${HOSTNAME}.${INSTRUQT_PARTICIPANT_ID}'.instruqt.io/entando-de-app/"' output.yaml
 sudo kubectl apply -f output.yaml -n entando
 
 echo '****************Waiting Entando to start****************'

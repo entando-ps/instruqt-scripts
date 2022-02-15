@@ -7,7 +7,7 @@ echo "============================== Entando Setup Script started ==============
 # shellcheck disable=SC2035
 chmod +x *.sh
 
-source ./install-cert-manager.sh
+#source ./install-cert-manager.sh
 
 source ./install-certificate.sh
 
