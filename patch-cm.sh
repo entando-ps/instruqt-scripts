@@ -1,4 +1,5 @@
 #!/bin/bash
+#patch-cm.sh is used to patch the quickstart-eci ingress with /k8s/(adding trailing slash)
 echo "==============================START patch entando cm ingress =============================="
 sudo kubectl -n entando get deployment quickstart-cm-deployment -o yaml > entandocm.yaml
 sed -i 's/  replicas: 1/  replicas: 0/g' entandocm.yaml

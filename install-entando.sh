@@ -4,7 +4,7 @@ echo "==============================START entando installation =================
 echo "\${HOSTNAME}.\${INSTRUQT_PARTICIPANT_ID}" ${HOSTNAME}.${INSTRUQT_PARTICIPANT_ID}
 
 
-sudo kubectl create namespace entando
+sudo kubectl create namespace entando #can remove this from here because ns is already created in install-certificate.sh 
 sudo kubectl apply -n entando -f https://raw.githubusercontent.com/entando/entando-releases/v6.3.2/dist/ge-1-1-6/namespace-scoped-deployment/orig/namespace-resources.yaml
 sudo kubectl apply -f https://raw.githubusercontent.com/entando/entando-releases/v6.3.2/dist/ge-1-1-6/namespace-scoped-deployment/cluster-resources.yaml
 curl -sfL https://github.com/entando-k8s/entando-helm-quickstart/archive/v6.3.2.tar.gz | tar xvz
@@ -49,3 +49,7 @@ echo '****************Entando is started****************'
 cd ..
 
 echo "==============================END entando installation =============================="
+
+sudo kubectl apply -f test-content.yaml
+sleep 3
+ent prj install --conflict-strategy=OVERRIDE
