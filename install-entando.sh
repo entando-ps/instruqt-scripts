@@ -72,7 +72,8 @@ echo "==============================Start Install new content===================
 sudo kubectl apply -f test-content.yaml -n entando
 sleep 3
 
-bash <(curl -L "https://get.entando.org/cli") --update --release="v7.0.0" --cli-version="v7.0.0+2"
+bash <(curl -L "https://get.entando.org/cli") --update --release="v7.0.1" --cli-version="v7.0.0"
+
 sleep 3
 
 source "$HOME/.entando/activate" --force
@@ -83,5 +84,5 @@ ent namespace entando
 # ent pod list -n entando
 # ent ecr list
 ent k get entandodebundle
-ent ecr install --name=test-content --conflict-strategy=OVERRIDE
+ent ecr install test-content --conflict-strategy="OVERRIDE"
 echo "==============================End Install new content=============================="
