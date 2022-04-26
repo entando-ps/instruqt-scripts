@@ -50,6 +50,24 @@ cd ..
 
 echo "==============================END entando installation =============================="
 
+PODNAME="$(sudo kubectl -n entando get pod | grep quickstart-server-deployment | cut -d ' ' -f 1)"
+
+sudo kubectl -n entando cp databases $PODNAME:/entando-data/
+
+sudo kubectl -n entando scale deployment quickstart-server-deployment --replicas=0
+sleep 2
+sudo kubectl -n entando scale deployment quickstart-server-deployment --replicas=1
+
+podsAreReady=0
+echo "3-podsAreReady = $podsAreReady"
+while [ $podsAreReady != "1" ]
+do
+    podsAreReady=`sudo kubectl -n entando get pods "$PODNAME" | grep "1/1" | wc -l`
+    echo "4-podsAreReady = $podsAreReady"
+    sleep 5
+done
+
+
 echo "==============================Start Install new content=============================="
 sudo kubectl apply -f test-content.yaml -n entando
 sleep 3
