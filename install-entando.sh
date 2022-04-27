@@ -50,39 +50,41 @@ cd ..
 
 echo "==============================END entando installation =============================="
 
-PODNAME="$(sudo kubectl -n entando get pod | grep quickstart-server-deployment | cut -d ' ' -f 1)"
 
-sudo kubectl -n entando cp databases $PODNAME:/entando-data/
+#"==============================Start welcome wizard disable =============================="
+# PODNAME="$(sudo kubectl -n entando get pod | grep quickstart-server-deployment | cut -d ' ' -f 1)"
 
-sudo kubectl -n entando scale deployment quickstart-server-deployment --replicas=0
-sleep 2
-sudo kubectl -n entando scale deployment quickstart-server-deployment --replicas=1
+# sudo kubectl -n entando cp databases $PODNAME:/entando-data/
 
-podsAreReady=0
-echo "3-podsAreReady = $podsAreReady"
-while [ $podsAreReady != "1" ]
-do
-    podsAreReady=`sudo kubectl -n entando get pods "$PODNAME" | grep "1/1" | wc -l`
-    echo "4-podsAreReady = $podsAreReady"
-    sleep 5
-done
+# sudo kubectl -n entando scale deployment quickstart-server-deployment --replicas=0
+# sleep 2
+# sudo kubectl -n entando scale deployment quickstart-server-deployment --replicas=1
 
+# podsAreReady=0
+# echo "3-podsAreReady = $podsAreReady"
+# while [ $podsAreReady != "1" ]
+# do
+#     podsAreReady=`sudo kubectl -n entando get pods "$PODNAME" | grep "1/1" | wc -l`
+#     echo "4-podsAreReady = $podsAreReady"
+#     sleep 5
+# done
+#"==============================End welcome wizard disable =============================="
 
 echo "==============================Start Install new content=============================="
-sudo kubectl apply -f test-content.yaml -n entando
-sleep 3
+# sudo kubectl apply -f test-content.yaml -n entando
+# sleep 3
 
-bash <(curl -L "https://get.entando.org/cli") --update --release="v7.0.1" --cli-version="v7.0.0"
+# bash <(curl -L "https://get.entando.org/cli") --update --release="v7.0.1" --cli-version="v7.0.0"
 
-sleep 3
+# sleep 3
 
-source "$HOME/.entando/activate" --force
-sleep 1
+# source "$HOME/.entando/activate" --force
+# sleep 1
 
-ent appname quickstart
-ent namespace entando
-# ent pod list -n entando
-# ent ecr list
-ent k get entandodebundle
-ent ecr install test-content --conflict-strategy="OVERRIDE"
+# ent appname quickstart
+# ent namespace entando
+# # ent pod list -n entando
+# # ent ecr list
+# ent k get entandodebundle
+# ent ecr install test-content --conflict-strategy="OVERRIDE"
 echo "==============================End Install new content=============================="
