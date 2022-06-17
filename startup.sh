@@ -13,7 +13,7 @@ source ./install-certificate.sh
 
 source ./install-entando.sh
 
-source ./patch-cm.sh
+# source ./patch-cm.sh
 
 source ./patch-kc.sh
 
